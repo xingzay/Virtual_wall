@@ -1,25 +1,22 @@
 # Virtual_wall
 # ros虚拟墙插件
+
 借鉴源码：https://github.com/DylanLN/virtual_wall.git
 
 使用rviz插件"Publish Point"点击两个点即可自动连成一条虚拟墙，Publish Point发布话题为/clicked_point
 
 改进：
+
     增加虚拟墙保存功能 -- rostopic pub /virtual_wall_save std_msgs/Empty {}"
     修改删除功能 -- rostopic pub  /delete_wall std_msgs/Int32 '0'  根据虚拟墙的id号来进行相应虚拟墙的删除 '0'-id
 
-savemapcallback()
-    思路：只保存"Publish Point"插入的两个点的坐标点信息，并给予相应的id号，将这些信息存入virtual_walls.txt文件中。
-loadmapcallback()
-    读取virtual_walls.txt文件中的坐标点信息，并在两个坐标点之间动态生成虚拟墙,实时更新代价地图
-GenerateWallBetweenPoints()
-    根据两个坐标点以及虚拟墙wall参数，在两个坐标之间插入坐标点来动态生成虚拟墙。
-
 插件安装：
+
     下载该功能包放入Navigation功能包，使用catkin_make编译工作空间
     使用rospack plugins --attrib=plugin costmap_2d命令，终端出现virtual_wall .../Virtual_wall/costmap_plugins.xml，便说明已经安装成功了，可以作为一个地图插件来使用了
 
 插件使用：
+
     进入你自己的导航功能包navigation中，找到自己的代价地图参数配置文件夹
     在global_costmap_params.yaml和local_costmap_params.yaml文件末尾，加入插件参数
     plugins:
@@ -30,6 +27,7 @@ GenerateWallBetweenPoints()
     PS：virtual_layer的顺序要在inflation_layer膨胀层插件上面
 
 使用过程：
+
     1、启动robot并打开导航
     2、使用rviz插件"Publish Point"点击两个点即可自动连成一条虚拟墙。
     3、发布rostopic pub /virtual_wall_save std_msgs/Empty {}"保存虚拟墙
